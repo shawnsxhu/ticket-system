@@ -1,0 +1,17 @@
+WITH CTE (
+x,
+y,
+z,
+duplicate count)
+AS
+(SELECT x,
+y,
+z,
+ROW_NUM() OVER (
+    PARTITION BY x,
+    y,
+    z
+) AS duplicate_count
+FROM employee
+)
+DELETE FROM CTE
